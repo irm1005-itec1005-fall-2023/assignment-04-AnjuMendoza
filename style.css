@@ -96,6 +96,22 @@ main {
   font-size: 13px;
 }
 
+.remove-btn {
+  background:rgb(219, 53, 53);
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
+.complete-btn {
+  background:#1ed94783;
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
 
 
 

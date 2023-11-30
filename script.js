@@ -20,8 +20,8 @@ function displayTasks() {
     taskItem.innerHTML =
       `<h2${task.completed ? ' class="completed-task"' : ''}>${task.description}</h2>
       <span>${task.id}</span>
-      <button data-id="${task.id}" class="remove-btn">Remove</button>
-      <button data-id="${task.id}" class="complete-btn">${task.completed ? 'Undo' : 'Done'}</button>`;
+      <button data-id="${task.id}" class="complete-btn">${task.completed ? 'Undo' : 'Done'}</button>
+      <button data-id="${task.id}" class="remove-btn">Remove</button>`;
 
 
     if (task.completed) {
