@@ -1,43 +1,133 @@
-/* Assignment 04: Finishing a Todo List App
- *
- * 
- *
- */
-
-
-//
 // Variables
-//
+let tasksList = [];
+let nextTaskID = 1;
 
-// Constants
-const appID = "app";
-const headingText = "To do. To done. ✅";
 
 // DOM Elements
-let appContainer = document.getElementById(appID);
+let tasksListElement = document.getElementById("TodoList");
+let taskInputElement = document.getElementById("NewItemInput");
+let addTaskButton = document.getElementById("AddButton");
+let clearTasksButton = document.getElementById("ClearButton");
 
-//
+
 // Functions
-//
+function displayTasks() {
+  tasksListElement.innerHTML = "";
 
-// Add a heading to the app container
-function inititialise() {
-  // If anything is wrong with the app container then end
-  if (!appContainer) {
-    console.error("Error: Could not find app contianer");
-    return;
+
+  for (const task of tasksList) {
+    const taskItem = document.createElement("li");
+    taskItem.innerHTML =
+      `<h2${task.completed ? ' class="completed-task"' : ''}>${task.description}</h2>
+      <span>${task.id}</span>
+      <button data-id="${task.id}" class="complete-btn">${task.completed ? 'Undo' : 'Done'}</button>
+      <button data-id="${task.id}" class="remove-btn">Remove</button>`;
+
+
+    if (task.completed) {
+      const checkMark = document.createElement("span");
+      checkMark.innerHTML = "✅";
+      checkMark.classList.add("status-icon");
+      taskItem.appendChild(checkMark);
+    }
+
+
+    tasksListElement.appendChild(taskItem);
   }
-
-  // Create an h1 and add it to our app
-  const h1 = document.createElement("h1");
-  h1.innerText = headingText;
-  appContainer.appendChild(h1);
-
-  // Init complete
-  console.log("App successfully initialised");
 }
 
-//
-// Inits & Event Listeners
-//
-inititialise();
+
+function handleAddTask() {
+  const description = taskInputElement.value.trim();
+
+
+  if (description !== "") {
+    createTask(description);
+    taskInputElement.value = "";
+    displayTasks();
+  } else {
+    showNotification("Please add something first");
+  }
+}
+
+
+function showNotification(message) {
+  const notificationElement = document.getElementById("notificationArea");
+  notificationElement.textContent = message;
+
+
+  setTimeout(() => {
+    notificationElement.textContent = "";
+  }, 3000);
+}
+
+
+function handleTaskClick(event) {
+  const taskID = parseInt(event.target.getAttribute("data-id"));
+
+
+  if (event.target.classList.contains("remove-btn")) {
+    removeTask(taskID);
+  } else if (event.target.classList.contains("complete-btn")) {
+    toggleTaskCompletion(taskID);
+  }
+
+
+  displayTasks();
+}
+
+
+function toggleTaskCompletion(taskID) {
+  const taskIndex = tasksList.findIndex((task) => task.id === taskID);
+
+
+  if (taskIndex !== -1) {
+    tasksList[taskIndex].completed = !tasksList[taskIndex].completed;
+    updateStoredTasks();
+  }
+}
+
+
+function createTask(description) {
+  let task = {
+    id: getNextTaskID(),
+    description: description,
+    completed: false,
+  };
+
+  tasksList.push(task);
+  updateStoredTasks();
+}
+
+
+function getNextTaskID() {
+  return tasksList.length > 0 ? Math.max(...tasksList.map(task => task.id)) + 1 : 1;
+}
+
+
+function removeTask(taskID) {
+  tasksList = tasksList.filter((task) => task.id !== taskID);
+  updateStoredTasks();
+}
+
+
+function updateStoredTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasksList));
+}
+
+
+function clearAllTasks() {
+  tasksList = [];
+  updateStoredTasks();
+  displayTasks();
+}
+
+
+// Event Listeners
+addTaskButton.addEventListener("click", handleAddTask);
+tasksListElement.addEventListener("click", handleTaskClick);
+clearTasksButton.addEventListener("click", clearAllTasks);
+
+
+// Initial rendering
+displayTasks();

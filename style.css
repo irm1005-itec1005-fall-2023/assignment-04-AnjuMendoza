@@ -41,6 +41,80 @@ main {
   align-items: center;
 }
 
+.navbar {
+  background:#4239e63a;
+  padding: 15px;
+  box-shadow: #8268b0 0px 8px 40px;
+}
+
+.navbar-title{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color:#4239e63a;
+  padding: 50px;
+  border-radius:20px;
+  box-shadow: #8268b0 0px 8px 40px;
+}
+
+.Todo-Container {
+  background-color:#928df01c;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#NewItemInput {
+  color:#f1faee;
+  border-radius: 15px;
+  border-width: 2.5px;
+  color:#1d3557
+}
+
+#AddButton {
+  background:#1ed94783;
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
+#ClearButton {
+  background:rgb(219, 53, 53);
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
+#TodoList {
+  font-size: 13px;
+}
+
+.remove-btn {
+  background:rgb(219, 53, 53);
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
+.complete-btn {
+  background:#1ed94783;
+  color:#f1faee;
+  text-transform:uppercase;
+  border-radius: 15px;
+  border-width: 2.5px;
+}
+
+
+
+
 
 /****** Screen reader text utility clsas *******/
 .sr-only {
