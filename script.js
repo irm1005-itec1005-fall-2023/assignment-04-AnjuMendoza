@@ -10,13 +10,15 @@
 let todoItems = [];
 let newTodoID = 1;
 
-
 // Constants
 const appID = "app";
 const headingText = "To do. To done. ✅";
 
 // DOM Elements
-let appContainer = document.getElementById(appID);
+let todoList = document.getElementById("TodoList");
+let userInput = document.getElementById("NewTodo");
+let addTaskButton = document.getElementById("AddTaskButton");
+let clearTaskButton = document.getElementById("ClearTaskButton")
 
 //
 // Functions
