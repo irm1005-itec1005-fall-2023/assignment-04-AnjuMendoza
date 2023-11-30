@@ -10,10 +10,6 @@
 let todoItems = [];
 let newTodoID = 1;
 
-// Constants
-const appID = "app";
-const headingText = "To do. To done. ✅";
-
 // DOM Elements
 let todoList = document.getElementById("TodoList");
 let userInput = document.getElementById("NewTodo");
@@ -25,23 +21,34 @@ let clearTaskButton = document.getElementById("ClearTaskButton")
 //
 
 // Add a heading to the app container
-function inititialise() {
-  // If anything is wrong with the app container then end
-  if (!appContainer) {
-    console.error("Error: Could not find app contianer");
-    return;
+function displayTasks() {
+  todoList.innerHTML = "";
+  
+  for (const task of todoItems) {
+    const todoItem = document.createElement("li");
+    todoItem.innerHTML = 
+      `<h2>${task.task}</h2>
+      <span>${task.id}</span>
+      <button data-id="${task.id}" class="remove-btn">Remove</button>
+      <button data-id="${task.id}" class="complete-btn">Complete</button>`;
+
+      if (task.completed) {
+        const check = document. createElement ("span");
+        check.innerHTML = "✅";
+        check.classList.add("status-icon");
+        todoItem.appendChild(check);
+        todoItem.classList.add("done");
+      }
+      todoItemsElement.appendChild(todoItem);
   }
-
-  // Create an h1 and add it to our app
-  const h1 = document.createElement("h1");
-  h1.innerText = headingText;
-  appContainer.appendChild(h1);
-
-  // Init complete
-  console.log("App successfully initialised");
 }
 
-//
-// Inits & Event Listeners
-//
-inititialise();
+function handleAddTask() {
+  const todoInput = userInput.ariaValueMax.trim();
+
+  if (todoInput !== "") {
+    createTodo(todoInput);
+    userInput.value = "";
+    displayTasks();
+  }
+}
